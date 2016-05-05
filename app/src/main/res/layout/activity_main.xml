@@ -29,4 +29,11 @@
         android:layout_alignParentBottom="true"
         tools:layout="@layout/fragment_bottom" />
 
+    <fragment
+        android:id="@+id/main_fragment_record"
+        android:name="com.zyguo.voicenote.view.VoiceNoteRecordAnimationFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout="@layout/fragment_talk_record" />
+
 </RelativeLayout>
