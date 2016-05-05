@@ -1,0 +1,43 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/fragment_title_height" >
+
+    <TextView
+        android:id="@+id/fragment_title_text_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:text="2016年5月2日"
+        android:gravity="center"
+        android:textSize="@dimen/text_size_middle" />
+
+    <TextView
+        android:id="@+id/fragment_title_text_day"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/fragment_title_text_date"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:text="星期一"
+        android:gravity="center"
+        android:textSize="@dimen/text_size_large"
+        android:textColor="@color/orange" />
+    
+    <ImageView
+        android:id="@+id/fragment_title_order"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:src="@drawable/icon_switch_off"
+        android:layout_marginRight="@dimen/activity_horizontal_margin" />
+
+    <ImageView
+        android:id="@+id/fragment_title_blank"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/blank_big" />
+
+</RelativeLayout>

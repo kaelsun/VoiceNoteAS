@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="white">#ffffff</color>
+    <color name="white_alpha">#00ffffff</color>
+    <color name="white_half_alpha">#80ffffff</color>
+    <color name="black">#000000</color>
+    <color name="grey">#dfdfdf</color>
+
+    <!-- 半透明 -->
+    <color name="transparent">#50000000</color>
+
+    <color name="white_f4">#f4f4f4</color>
+    <color name="white_f7">#F7F7F7</color>
+
+    <color name="green">#4fc806</color>
+    <color name="text_grey">#ebebeb</color>
+    <color name="text_black">#333333</color>
+    <color name="text_disabled">#aaaaaa</color>
+    <color name="text_red">#ff6868</color>
+    <color name="orange">#fe941c</color>
+    <color name="talk_title">#999999</color>
+
+    <color name="red">#FF0000</color>
+    <color name="bule">#0000FF</color>
+
+</resources>

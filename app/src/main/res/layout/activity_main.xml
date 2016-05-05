@@ -1,0 +1,32 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/paper"
+    android:theme="@android:style/Theme.NoTitleBar"
+    tools:context=".MainActivity" >
+
+    <fragment
+        android:id="@+id/main_fragment_title"
+        android:name="com.zyguo.voicenote.view.VoiceNoteTitleFragment"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/fragment_title_height"
+        tools:layout="@layout/fragment_title" />
+
+    <fragment
+        android:id="@+id/main_fragment_body"
+        android:name="com.zyguo.voicenote.view.VoiceNoteBodyFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/main_fragment_title"
+        tools:layout="@layout/fragment_body" />
+
+    <fragment
+        android:id="@+id/main_fragment_bottom"
+        android:name="com.zyguo.voicenote.view.VoiceNoteBottomFragment"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/fragment_bottom_height"
+        android:layout_alignParentBottom="true"
+        tools:layout="@layout/fragment_bottom" />
+
+</RelativeLayout>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <RelativeLayout
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="@drawable/main_speech_dialog" >
+
+        <TextView
+            android:id="@+id/talk_animation_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="@string/cancle_the_talk"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_middle"
+            android:layout_marginTop="35dp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/talk_animation_title"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="35dp" >
+
+            <Chronometer
+                android:id="@+id/talk_animation_chronometer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:format="%s"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_small" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:layout_toLeftOf="@id/talk_animation_chronometer"
+                android:id="@+id/record_animation_left"
+                android:background="@drawable/speech_record_animation" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:id="@+id/record_animation_right"
+                android:layout_toRightOf="@id/talk_animation_chronometer"
+                android:background="@drawable/speech_record_animation" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+</RelativeLayout>
