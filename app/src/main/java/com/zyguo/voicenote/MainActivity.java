@@ -5,14 +5,25 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
+import android.widget.Toast;
 
-public class MainActivity extends FragmentActivity implements Handler.Callback{
+import com.iflytek.cloud.SpeechUtility;
+import com.zyguo.voicenote.tools.VoiceRecogEng;
+import com.zyguo.voicenote.view.VoiceNoteRecordAnimationFragment;
+
+public class MainActivity extends FragmentActivity implements Handler.Callback, VoiceRecogEng.IVoiceRecogCallbk{
+
+    // constants start
+    public static final int MAIN_HANDLER_START_RECORD = 10;
+    public static final int MAIN_HANDLER_STOP_RECORD = 11;
+    public static final int MAIN_HANDLER_CANCEL_RECORD = 12;
+    // constants end
 
     private Handler mHandler;
 
-    public static final int MAIN_HANDLER_SHOW_RECORD_DIALOG = 10;
+    VoiceRecogEng mVoiceRecogEng = VoiceRecogEng.getInstance();
 
-    public static final int MAIN_HANDLER_HIDE_RECORD_DIALOG = 11;
+    VoiceNoteRecordAnimationFragment recordDialog = new VoiceNoteRecordAnimationFragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,14 +67,52 @@ public class MainActivity extends FragmentActivity implements Handler.Callback{
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        mVoiceRecogEng.unInitialize();
     }
 
     private void initController() {
+        SpeechUtility.createUtility(this, "appid=" + getString(R.string.ifly_app_id));
         mHandler = new Handler(this);
+        mVoiceRecogEng.initialize(this, this);
     }
 
     @Override
     public boolean handleMessage(Message message) {
-        return false;
+        switch (message.what) {
+            case MAIN_HANDLER_START_RECORD:
+                mVoiceRecogEng.voiceRecognizeStart(this);
+                recordDialog.show(getSupportFragmentManager(), recordDialog.getClass().getName());
+                break;
+            case MAIN_HANDLER_STOP_RECORD:
+                mVoiceRecogEng.voiceRecognizeStop();
+                recordDialog.dismiss();
+                break;
+            case MAIN_HANDLER_CANCEL_RECORD:
+                mVoiceRecogEng.voiceRecognizeCancel();
+                recordDialog.dismiss();
+                break;
+        }
+        return true;
+    }
+
+    @Override
+    public void onEvent(int type, Object obj1, Object obj2) {
+        switch (type) {
+            case VoiceRecogEng.IVoiceRecogCallbk.VOICE_RECOGNLIZE_CALLBACK_TYPE_INIT_ERROR:
+                Toast.makeText(this, "初始化失败", Toast.LENGTH_SHORT).show();
+                break;
+            case VoiceRecogEng.IVoiceRecogCallbk.VOICE_RECOGNLIZE_CALLBACK_TYPE_START_LISTEN_ERROR:
+                Toast.makeText(this, "识别未成功开始", Toast.LENGTH_SHORT).show();
+                break;
+            case VoiceRecogEng.IVoiceRecogCallbk.VOICE_RECOGNLIZE_CALLBACK_TYPE_RECOGLIZE_ERROR:
+                Toast.makeText(this, "" + obj1, Toast.LENGTH_SHORT).show();
+                break;
+            case VoiceRecogEng.IVoiceRecogCallbk.VOICE_RECOGNLIZE_CALLBACK_TYPE_RECOGLIZE_RESULT:
+                Toast.makeText(this, "" + obj1+obj2+"", Toast.LENGTH_SHORT).show();
+                break;
+            case VoiceRecogEng.IVoiceRecogCallbk.VOICE_RECOGNLIZE_CALLBACK_TYPE_MEMORY_NOT_AVAILIABLE:
+                Toast.makeText(this, "内存不足，请检查手机内存", Toast.LENGTH_SHORT).show();
+                break;
+        }
     }
 }

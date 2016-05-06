@@ -8,12 +8,11 @@ package com.zyguo.voicenote.tools;
  * @CodeReview:
  *********************************************************************************************/
 
-import java.io.File;
-
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 
 import com.iflytek.cloud.ErrorCode;
 import com.iflytek.cloud.InitListener;
@@ -22,6 +21,9 @@ import com.iflytek.cloud.RecognizerResult;
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SpeechRecognizer;
+import com.zyguo.voicenote.global.ErrCode;
+
+import java.io.File;
 
 public class VoiceRecogEng {
 
@@ -64,18 +66,17 @@ public class VoiceRecogEng {
     private RecognizerListener mRecognizerListener;
 
     private IVoiceRecogCallbk mIVoiceRecogCallbk;
-    private LogMgr mLogMgr = LogMgr.getInstance();
     private Handler handler;
     private String mRecoderFilePath;
 
     private VoiceRecogEng() {
-        mLogMgr.i(LOGTAG, "==>VoiceRecogEng::constructor<>::VoiceRecogEng init");
+        Log.i(LOGTAG, "==>VoiceRecogEng::constructor<>::VoiceRecogEng init");
         handler = new Handler(Looper.getMainLooper());
         mInitListener = new InitListener() {
 
             @Override
             public void onInit(int code) {
-                mLogMgr.i(LOGTAG, "Thread:" + Thread.currentThread().getName() + "==>VoiceRecogEng::SpeechRecognizer::InitListener::onInit()::result:" + code);
+                Log.i(LOGTAG, "Thread:" + Thread.currentThread().getName() + "==>VoiceRecogEng::SpeechRecognizer::InitListener::onInit()::result:" + code);
                 if (code != ErrorCode.SUCCESS) {
                     notifyUpLayer(IVoiceRecogCallbk.VOICE_RECOGNLIZE_CALLBACK_TYPE_INIT_ERROR, null, null);
                 }
@@ -85,12 +86,12 @@ public class VoiceRecogEng {
 
             @Override
             public void onBeginOfSpeech() {
-                mLogMgr.i(LOGTAG, "VoiceRecogEng::RecognizerListener::onBeginOfSpeech()");
+                Log.i(LOGTAG, "VoiceRecogEng::RecognizerListener::onBeginOfSpeech()");
             }
 
             @Override
             public void onError(SpeechError error) {
-                mLogMgr.i(LOGTAG, "Thread:" + Thread.currentThread().getName() + "==>VoiceRecogEng::SpeechRecognizer::RecognizerListener::onError()::" + error);
+                Log.i(LOGTAG, "Thread:" + Thread.currentThread().getName() + "==>VoiceRecogEng::SpeechRecognizer::RecognizerListener::onError()::" + error);
                 synchronized (VoiceRecogEng.this) {
                     notifyUpLayer(IVoiceRecogCallbk.VOICE_RECOGNLIZE_CALLBACK_TYPE_RECOGLIZE_ERROR, error.getErrorDescription(), null);
                 }
@@ -98,7 +99,7 @@ public class VoiceRecogEng {
 
             @Override
             public void onEndOfSpeech() {
-                mLogMgr.i(LOGTAG, "VoiceRecogEng::RecognizerListener::onEndOfSpeech()");
+                Log.i(LOGTAG, "VoiceRecogEng::RecognizerListener::onEndOfSpeech()");
             }
 
             private StringBuilder sb = new StringBuilder();
@@ -113,7 +114,7 @@ public class VoiceRecogEng {
                     if (resultText.matches(reg)) {
                         resultText = resultText.substring(0, resultText.length() - 1).trim();
                     }
-                    mLogMgr.i(LOGTAG, "Thread:" + Thread.currentThread().getName() + "==>VoiceRecogEng::SpeechRecognizer::RecognizerListener::onResult()::" + resultText);
+                    Log.i(LOGTAG, "Thread:" + Thread.currentThread().getName() + "==>VoiceRecogEng::SpeechRecognizer::RecognizerListener::onResult()::" + resultText);
                     synchronized (VoiceRecogEng.this) {
                         notifyUpLayer(IVoiceRecogCallbk.VOICE_RECOGNLIZE_CALLBACK_TYPE_RECOGLIZE_RESULT, resultText, mRecoderFilePath);
                     }
@@ -149,7 +150,7 @@ public class VoiceRecogEng {
         }
         mIVoiceRecogCallbk = voiceRecogCallbk;
         mSpeechRecognizer = SpeechRecognizer.createRecognizer(context, mInitListener);
-        mLogMgr.i(LOGTAG, "==>VoiceRecogEng::initialize()");
+        Log.i(LOGTAG, "==>VoiceRecogEng::initialize()");
         return ErrCode.XERR_NONE;
     }
 
@@ -167,7 +168,7 @@ public class VoiceRecogEng {
         }
         mIVoiceRecogCallbk = null;
         mSpeechRecognizer = null;
-        mLogMgr.i(LOGTAG, "==>VoiceRecogEng::unInitialize()::release resource");
+        Log.i(LOGTAG, "==>VoiceRecogEng::unInitialize()::release resource");
         return ErrCode.XERR_NONE;
     }
 
@@ -176,25 +177,25 @@ public class VoiceRecogEng {
      * @brief start voice recognize and audio recode
      */
     public synchronized int voiceRecognizeStart(Context context) {
-        mLogMgr.i(LOGTAG, "==>VoiceRecogEng::voiceRecognizeStart()::Enter");
+        Log.i(LOGTAG, "==>VoiceRecogEng::voiceRecognizeStart()::Enter");
         if (mSpeechRecognizer == null) {
-            mLogMgr.e(LOGTAG, "==>VoiceRecogEng::voiceRecognizeStart()::engine not init or init fail!!!");
+            Log.e(LOGTAG, "==>VoiceRecogEng::voiceRecognizeStart()::engine not init or init fail!!!");
             return ErrCode.XERR_BAD_STATE;
         }
 
         if (mSpeechRecognizer.isListening()) {
-            mLogMgr.w(LOGTAG, "==>VoiceRecogEng::voiceRecognizeStart()::engine is listening ");
+            Log.w(LOGTAG, "==>VoiceRecogEng::voiceRecognizeStart()::engine is listening ");
             return ErrCode.XERR_BAD_STATE;
         }
         int res = createPcmFile(context);
         if (res != ErrCode.XERR_NONE) {
-            mLogMgr.e(LOGTAG, "==>VoiceRecogEng::voiceRecognizeStart()::create file error!!!");
+            Log.e(LOGTAG, "==>VoiceRecogEng::voiceRecognizeStart()::create file error!!!");
             return ErrCode.XERR_BAD_STATE;
         }
         setParam();
         int ret = mSpeechRecognizer.startListening(mRecognizerListener);
         if (ret != ErrorCode.SUCCESS) {
-            mLogMgr.e(LOGTAG, "==>VoiceRecogEng::voiceRecognizeStart()::listening fail:" + ret);
+            Log.e(LOGTAG, "==>VoiceRecogEng::voiceRecognizeStart()::listening fail:" + ret);
             notifyUpLayer(IVoiceRecogCallbk.VOICE_RECOGNLIZE_CALLBACK_TYPE_START_LISTEN_ERROR, null, null);
             return ErrCode.XERR_BAD_STATE;
         }
@@ -218,19 +219,19 @@ public class VoiceRecogEng {
         long size = 10l * 1024 * 1024;
         if (FileSizeUtil.externalMemoryAvailable()) {
             long externalAvailaSize = FileSizeUtil.getAvailableExternalMemorySize();
-            mLogMgr.i(LOGTAG, "==>VoiceRecogEng::createPcmFile()::sdcard available size:" + externalAvailaSize / 1024 / 1024 + "MB");
+            Log.i(LOGTAG, "==>VoiceRecogEng::createPcmFile()::sdcard available size:" + externalAvailaSize / 1024 / 1024 + "MB");
             if (externalAvailaSize >= size) {
                 isExternalAvailable = true;
             } else {
                 long internalAvailaSize = FileSizeUtil.getAvailableInternalMemorySize();
-                mLogMgr.i(LOGTAG, "==>VoiceRecogEng::createPcmFile()::internal available size:" + internalAvailaSize / 1024 / 1024 + "MB");
+                Log.i(LOGTAG, "==>VoiceRecogEng::createPcmFile()::internal available size:" + internalAvailaSize / 1024 / 1024 + "MB");
                 if (internalAvailaSize >= size) {
                     isInternalAvailable = true;
                 }
             }
         } else {
             long internalAvailaSize = FileSizeUtil.getAvailableInternalMemorySize();
-            mLogMgr.i(LOGTAG, "==>VoiceRecogEng::createPcmFile()::internal available size:" + internalAvailaSize / 1024 / 1024 + "MB");
+            Log.i(LOGTAG, "==>VoiceRecogEng::createPcmFile()::internal available size:" + internalAvailaSize / 1024 / 1024 + "MB");
             if (internalAvailaSize >= size) {
                 isInternalAvailable = true;
             }
@@ -246,7 +247,7 @@ public class VoiceRecogEng {
             } else if (isInternalAvailable) {
                 mRecoderFilePath = context.getCacheDir().getAbsoluteFile() + fileName;
             } else {
-                mLogMgr.e(LOGTAG, "==>VoiceRecogEng::createPcmFile()::Memory nAvailaSize not enough!!");
+                Log.e(LOGTAG, "==>VoiceRecogEng::createPcmFile()::Memory nAvailaSize not enough!!");
                 notifyUpLayer(IVoiceRecogCallbk.VOICE_RECOGNLIZE_CALLBACK_TYPE_MEMORY_NOT_AVAILIABLE, null, null);
                 return ErrCode.XERR_BAD_STATE;
             }
@@ -260,7 +261,7 @@ public class VoiceRecogEng {
             e.printStackTrace();
             return ErrCode.XERR_BAD_STATE;
         }
-        mLogMgr.i(LOGTAG, "==>VoiceRecogEng::createPcmFile()::recoder path:" + mRecoderFilePath);
+        Log.i(LOGTAG, "==>VoiceRecogEng::createPcmFile()::recoder path:" + mRecoderFilePath);
         return ErrCode.XERR_NONE;
     }
 
@@ -271,13 +272,13 @@ public class VoiceRecogEng {
      *
      */
     public synchronized int voiceRecognizeStop() {
-        mLogMgr.i(LOGTAG, "==>VoiceRecogEng::voiceRecognizeStop()::Enter");
+        Log.i(LOGTAG, "==>VoiceRecogEng::voiceRecognizeStop()::Enter");
         if (mSpeechRecognizer == null) {
-            mLogMgr.e(LOGTAG, "==>VoiceRecogEng::voiceRecognizeStop()::engine not init or init fail!!!");
+            Log.e(LOGTAG, "==>VoiceRecogEng::voiceRecognizeStop()::engine not init or init fail!!!");
             return ErrCode.XERR_NONE;
         }
         if (!mSpeechRecognizer.isListening()) {
-            mLogMgr.w(LOGTAG, "==>VoiceRecogEng::voiceRecognizeStop()::is not listening");
+            Log.w(LOGTAG, "==>VoiceRecogEng::voiceRecognizeStop()::is not listening");
             return ErrCode.XERR_NONE;
         }
         mSpeechRecognizer.stopListening();
@@ -290,9 +291,9 @@ public class VoiceRecogEng {
      *
      */
     public synchronized int voiceRecognizeCancel() {
-        mLogMgr.i(LOGTAG, "==>VoiceRecogEng::voiceRecognizeCancel()::Enter");
+        Log.i(LOGTAG, "==>VoiceRecogEng::voiceRecognizeCancel()::Enter");
         if (mSpeechRecognizer == null) {
-            mLogMgr.e(LOGTAG, "==>VoiceRecogEng::voiceRecognizeCancel()::engine not init or init fail!!!");
+            Log.e(LOGTAG, "==>VoiceRecogEng::voiceRecognizeCancel()::engine not init or init fail!!!");
             return ErrCode.XERR_NONE;
         }
         mSpeechRecognizer.cancel();

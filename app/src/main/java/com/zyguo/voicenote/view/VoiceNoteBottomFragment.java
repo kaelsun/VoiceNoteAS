@@ -1,20 +1,17 @@
 package com.zyguo.voicenote.view;
 
 import android.os.Bundle;
-import android.os.SystemClock;
+import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Chronometer;
 
+import com.zyguo.voicenote.MainActivity;
 import com.zyguo.voicenote.R;
 import com.zyguo.voicenote.base.BaseFragment;
-import com.zyguo.voicenote.tools.VoiceRecogEng;
 
 public class VoiceNoteBottomFragment extends BaseFragment implements View.OnTouchListener{
-
-    VoiceRecogEng mVoiceRecogEng = VoiceRecogEng.getInstance();
 
     @Override  
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
@@ -53,8 +50,7 @@ public class VoiceNoteBottomFragment extends BaseFragment implements View.OnTouc
 
     @Override
     protected void initController() {
-        //findViewById(R.id.fragment_bottom_speech).setOnClickListener(this);
-        findViewById(R.id.fragment_bottom_speech).setOnClickListener(this);
+        findViewById(R.id.fragment_bottom_speech).setOnTouchListener(this);
     }
 
     @Override
@@ -67,26 +63,26 @@ public class VoiceNoteBottomFragment extends BaseFragment implements View.OnTouc
 
     @Override
     public boolean onTouch(View view, MotionEvent motionEvent) {
+        Message msg = new Message();
         if(view.getId() == R.id.fragment_bottom_speech) {
-            Chronometer chronometer = (Chronometer) findViewById(R.id.talk_animation_chronometer);
             switch(motionEvent.getAction()) {
                 case MotionEvent.ACTION_DOWN:
-                    mVoiceRecogEng.voiceRecognizeStart(getContext());
-                    chronometer.setBase(SystemClock.elapsedRealtime());
-                    chronometer.start();
+                    msg.what = MainActivity.MAIN_HANDLER_START_RECORD;
+                    if(getActivityHandler() != null)
+                        getActivityHandler().sendMessage(msg);
                     break;
                 case MotionEvent.ACTION_UP:
                     if (isInside(motionEvent.getX(), motionEvent.getY())) {
-                        mVoiceRecogEng.voiceRecognizeStop();
-                        chronometer.stop();
-                        chronometer.setBase(SystemClock.elapsedRealtime());
-                        break;
+                        msg.what = MainActivity.MAIN_HANDLER_STOP_RECORD;
+                        if(getActivityHandler() != null)
+                            getActivityHandler().sendMessage(msg);
                     }
+                    break;
                 case MotionEvent.ACTION_OUTSIDE:
                 case MotionEvent.ACTION_CANCEL:
-                    mVoiceRecogEng.voiceRecognizeCancel();
-                    chronometer.stop();
-                    chronometer.setBase(SystemClock.elapsedRealtime());
+                    msg.what = MainActivity.MAIN_HANDLER_CANCEL_RECORD;
+                    if(getActivityHandler() != null)
+                        getActivityHandler().sendMessage(msg);
                     break;
             }
         }
