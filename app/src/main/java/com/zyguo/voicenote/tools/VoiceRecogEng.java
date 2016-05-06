@@ -85,6 +85,11 @@ public class VoiceRecogEng {
         mRecognizerListener = new RecognizerListener() {
 
             @Override
+            public void onVolumeChanged(int i) {
+
+            }
+
+            @Override
             public void onBeginOfSpeech() {
                 Log.i(LOGTAG, "VoiceRecogEng::RecognizerListener::onBeginOfSpeech()");
             }
@@ -125,10 +130,6 @@ public class VoiceRecogEng {
             @Override
             public void onEvent(int arg0, int arg1, int arg2, Bundle arg3) {
 
-            }
-
-            @Override
-            public void onVolumeChanged(int arg0, final byte[] data) {
             }
         };
     }
@@ -337,7 +338,7 @@ public class VoiceRecogEng {
         mSpeechRecognizer.setParameter(SpeechConstant.ASR_PTT, "0");
         mSpeechRecognizer.setParameter(SpeechConstant.AUDIO_FORMAT, "wav");
         mSpeechRecognizer.setParameter(SpeechConstant.ASR_AUDIO_PATH, mRecoderFilePath);
-        mSpeechRecognizer.setParameter(SpeechConstant.ASR_DWA, "0");
+        //mSpeechRecognizer.setParameter(SpeechConstant.ASR_DWA, "0");
     }
 
 }
