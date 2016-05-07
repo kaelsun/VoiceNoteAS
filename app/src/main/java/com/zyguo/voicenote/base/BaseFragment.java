@@ -3,6 +3,7 @@ package com.zyguo.voicenote.base;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -14,7 +15,12 @@ import com.zyguo.voicenote.MainActivity;
  * Show suggested method names for fragments.<br/>
  * Suggested to be the father of all fragments, but not forced.
  */
-public class BaseFragment extends Fragment implements OnClickListener{
+public abstract class BaseFragment extends Fragment implements OnClickListener, Handler.Callback{
+
+    /**
+     * Handler of the Fragment. Children should register to the Messenger if it want to use the handler.
+     */
+    protected Handler mHandler;
 
     /**
      * Anything about the controller layer could be here.
@@ -42,6 +48,7 @@ public class BaseFragment extends Fragment implements OnClickListener{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mHandler = new Handler(this);
         //initController();
     }
 
@@ -64,5 +71,14 @@ public class BaseFragment extends Fragment implements OnClickListener{
             e.printStackTrace();
             return null;
         }
+    }
+
+    @Override
+    public boolean handleMessage(Message message) {
+        return false;
+    }
+
+    public Handler getHandler() {
+        return mHandler;
     }
 }

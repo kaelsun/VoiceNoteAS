@@ -1,12 +1,14 @@
 package com.zyguo.voicenote.view;
 
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.Chronometer;
 
 import com.zyguo.voicenote.R;
 
@@ -50,10 +52,10 @@ public class VoiceNoteRecordAnimationFragment extends DialogFragment{
 
     @Override
     public void show(FragmentManager manager, String tag) {
-        //Chronometer chronometer = (Chronometer) getView().findViewById(R.id.talk_animation_chronometer);
-        //chronometer.setBase(SystemClock.elapsedRealtime());
-        //chronometer.start();
         super.show(manager, tag);
+        Chronometer chronometer = (Chronometer) getView().findViewById(R.id.talk_animation_chronometer);
+        chronometer.setBase(SystemClock.elapsedRealtime());
+        chronometer.start();
     }
 
 }

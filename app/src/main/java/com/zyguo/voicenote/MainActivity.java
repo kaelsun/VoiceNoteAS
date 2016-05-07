@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.widget.Toast;
 
 import com.iflytek.cloud.SpeechUtility;
+import com.zyguo.voicenote.tools.Messenger;
 import com.zyguo.voicenote.tools.VoiceRecogEng;
 import com.zyguo.voicenote.view.VoiceNoteRecordAnimationFragment;
 
@@ -68,6 +69,7 @@ public class MainActivity extends FragmentActivity implements Handler.Callback, 
     protected void onDestroy() {
         super.onDestroy();
         mVoiceRecogEng.unInitialize();
+        Messenger.getInstance().release();
     }
 
     private void initController() {

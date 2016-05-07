@@ -5,9 +5,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.zyguo.voicenote.R;
 import com.zyguo.voicenote.base.BaseFragment;
+import com.zyguo.voicenote.tools.TimeUtil;
 
 public class VoiceNoteTitleFragment extends BaseFragment {
 
@@ -22,8 +24,8 @@ public class VoiceNoteTitleFragment extends BaseFragment {
     
     @Override
     public void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
+        initTime();
     }
     
     @Override
@@ -55,6 +57,15 @@ public class VoiceNoteTitleFragment extends BaseFragment {
     protected void initController() {
         findViewById(R.id.fragment_title_order).setOnClickListener(this);
         findViewById(R.id.fragment_title_order).setTag(TAG_SWITCH_OFF);
+    }
+
+    private void initTime() {
+        TextView date = (TextView) findViewById(R.id.fragment_title_text_date);
+        TextView day = (TextView) findViewById(R.id.fragment_title_text_day);
+        if(date != null)
+            date.setText(TimeUtil.getDate());
+        if(day != null)
+            day.setText(TimeUtil.getDay());
     }
 
     @Override
