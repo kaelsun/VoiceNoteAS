@@ -41,6 +41,14 @@ public class Messenger {
     }
 
     /**
+     * Remove the handler by id.
+     * @param name name of the class that the handler belong to.
+     */
+    public synchronized  void unRegisterHandler(String name) {
+        mMap.remove(name);
+    }
+
+    /**
      * Release the map especially.
      */
     public void release() {

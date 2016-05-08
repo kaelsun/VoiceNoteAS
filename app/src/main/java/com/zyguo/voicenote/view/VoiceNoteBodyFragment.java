@@ -1,14 +1,18 @@
 package com.zyguo.voicenote.view;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.zyguo.voicenote.R;
+import com.zyguo.voicenote.base.BaseFragment;
+import com.zyguo.voicenote.tools.Messenger;
 
-public class VoiceNoteBodyFragment extends Fragment{
+public class VoiceNoteBodyFragment extends BaseFragment{
+
+    public static final int BODY_HANDLER_ONRESULT = 20;
 
     @Override  
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
@@ -18,6 +22,7 @@ public class VoiceNoteBodyFragment extends Fragment{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Messenger.getInstance().registerHandler(this.getClass().getName(), mHandler);
     }
     
     @Override
@@ -43,5 +48,11 @@ public class VoiceNoteBodyFragment extends Fragment{
     @Override
     public void onDestroy() {
         super.onDestroy();
+        Messenger.getInstance().unRegisterHandler(this.getClass().getName());
+    }
+
+    @Override
+    public boolean handleMessage(Message message) {
+        return true;
     }
 }

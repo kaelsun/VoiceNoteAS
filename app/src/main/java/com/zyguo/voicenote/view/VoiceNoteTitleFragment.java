@@ -25,12 +25,13 @@ public class VoiceNoteTitleFragment extends BaseFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initTime();
+        //initTime();
     }
     
     @Override
     public void onStart() {
         super.onStart();
+        initTime();
     }
     
     @Override
@@ -65,7 +66,7 @@ public class VoiceNoteTitleFragment extends BaseFragment {
         if(date != null)
             date.setText(TimeUtil.getDate());
         if(day != null)
-            day.setText(TimeUtil.getDay());
+            day.setText(TimeUtil.getWeek());
     }
 
     @Override

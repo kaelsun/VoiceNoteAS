@@ -53,7 +53,7 @@ public class TimeUtil {
     public static String getDate() {
         long stamp = System.currentTimeMillis();
         Date date = new Date(stamp);
-        SimpleDateFormat format = new SimpleDateFormat("yyyy年-MM月-dd日");
+        SimpleDateFormat format = new SimpleDateFormat("yyyy年M月d日");
         String str = format.format(date);
         return str;
     }
@@ -62,7 +62,24 @@ public class TimeUtil {
      * get current day of the week.
      * @return sample: 星期一
      */
-    public static int getWeek() {
-        return Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
+    public static String getWeek() {
+        int day = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
+        switch (day) {
+            case Calendar.MONDAY:
+                return "星期一";
+            case Calendar.TUESDAY:
+                return "星期二";
+            case Calendar.WEDNESDAY:
+                return "星期三";
+            case Calendar.THURSDAY:
+                return "星期四";
+            case Calendar.FRIDAY:
+                return "星期五";
+            case Calendar.SATURDAY:
+                return "星期六";
+            case Calendar.SUNDAY:
+                return "星期日";
+        }
+        return "";
     }
 }

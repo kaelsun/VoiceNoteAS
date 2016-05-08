@@ -10,6 +10,7 @@ import android.widget.Toast;
 import com.iflytek.cloud.SpeechUtility;
 import com.zyguo.voicenote.tools.Messenger;
 import com.zyguo.voicenote.tools.VoiceRecogEng;
+import com.zyguo.voicenote.view.VoiceNoteBodyFragment;
 import com.zyguo.voicenote.view.VoiceNoteRecordAnimationFragment;
 
 public class MainActivity extends FragmentActivity implements Handler.Callback, VoiceRecogEng.IVoiceRecogCallbk{
@@ -111,10 +112,22 @@ public class MainActivity extends FragmentActivity implements Handler.Callback, 
                 break;
             case VoiceRecogEng.IVoiceRecogCallbk.VOICE_RECOGNLIZE_CALLBACK_TYPE_RECOGLIZE_RESULT:
                 Toast.makeText(this, "" + obj1+obj2+"", Toast.LENGTH_SHORT).show();
+                onResult(obj1 + "", obj2 + "");
                 break;
             case VoiceRecogEng.IVoiceRecogCallbk.VOICE_RECOGNLIZE_CALLBACK_TYPE_MEMORY_NOT_AVAILIABLE:
                 Toast.makeText(this, "内存不足，请检查手机内存", Toast.LENGTH_SHORT).show();
                 break;
         }
+    }
+
+    private void onResult(String content, String path) {
+        Handler bodyHandler = Messenger.getInstance().getHandlerByName(VoiceNoteBodyFragment.class.getName());
+        Message msg = new Message();
+        msg.what = VoiceNoteBodyFragment.BODY_HANDLER_ONRESULT;
+        Bundle bundle = new Bundle();
+        bundle.putString("content", content);
+        bundle.putString("path", path);
+        msg.setData(bundle);
+        bodyHandler.sendMessage(msg);
     }
 }
