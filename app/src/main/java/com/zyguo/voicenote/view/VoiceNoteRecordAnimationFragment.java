@@ -28,6 +28,9 @@ public class VoiceNoteRecordAnimationFragment extends DialogFragment{
     @Override
     public void onStart() {
         super.onStart();
+        Chronometer chronometer = (Chronometer) getView().findViewById(R.id.talk_animation_chronometer);
+        chronometer.setBase(SystemClock.elapsedRealtime());
+        chronometer.start();
     }
     
     @Override
@@ -53,9 +56,6 @@ public class VoiceNoteRecordAnimationFragment extends DialogFragment{
     @Override
     public void show(FragmentManager manager, String tag) {
         super.show(manager, tag);
-        Chronometer chronometer = (Chronometer) getView().findViewById(R.id.talk_animation_chronometer);
-        chronometer.setBase(SystemClock.elapsedRealtime());
-        chronometer.start();
     }
 
 }

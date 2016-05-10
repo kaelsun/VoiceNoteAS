@@ -76,6 +76,10 @@ public class VoiceNoteBottomFragment extends BaseFragment implements View.OnTouc
                         msg.what = MainActivity.MAIN_HANDLER_STOP_RECORD;
                         if(getActivityHandler() != null)
                             getActivityHandler().sendMessage(msg);
+                    } else {
+                        msg.what = MainActivity.MAIN_HANDLER_CANCEL_RECORD;
+                        if(getActivityHandler() != null)
+                            getActivityHandler().sendMessage(msg);
                     }
                     break;
                 case MotionEvent.ACTION_OUTSIDE:

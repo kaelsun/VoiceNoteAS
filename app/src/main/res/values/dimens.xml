@@ -20,4 +20,7 @@
     <dimen name="fragment_record_height">120dp</dimen>
     <dimen name="fragment_record_margin">40dp</dimen>
 
+    <dimen name="item_height">60dp</dimen>
+    <dimen name="item_drawer_width">80dp</dimen>
+
 </resources>
