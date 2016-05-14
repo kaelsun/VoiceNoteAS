@@ -8,23 +8,50 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/black"
-        android:visibility="visible">
+        android:visibility="visible"
+        android:id="@+id/item_main">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/item_divider"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/blank_big"/>
     </RelativeLayout>
 
     <RelativeLayout
         android:layout_height="match_parent"
-        android:layout_width="@dimen/item_drawer_width"
-        android:background="@color/bule"
+        android:layout_width="@dimen/item_left_drawer_width"
+        android:background="@color/yellow"
         android:layout_gravity="left"
-        android:visibility="visible">
+        android:visibility="visible"
+        android:id="@+id/item_left">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/item_star"
+            android:src="@drawable/big_star_grey"
+            android:layout_centerInParent="true"/>
+
     </RelativeLayout>
 
     <RelativeLayout
         android:layout_height="match_parent"
-        android:layout_width="@dimen/item_drawer_width"
+        android:layout_width="@dimen/item_right_drawer_width"
         android:background="@color/text_red"
         android:layout_gravity="right"
-        android:visibility="visible">
+        android:visibility="visible"
+        android:id="@+id/item_right">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/item_text_delete"
+            android:gravity="center"
+            android:text="@string/item_text_delete"
+            android:textColor="@color/white"
+            android:layout_centerInParent="true"
+            android:textSize="@dimen/text_size_middle"/>
+
     </RelativeLayout>
 </com.zyguo.voicenote.base.TouchableDrawerLayout>

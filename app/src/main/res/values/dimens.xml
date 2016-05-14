@@ -20,7 +20,10 @@
     <dimen name="fragment_record_height">120dp</dimen>
     <dimen name="fragment_record_margin">40dp</dimen>
 
+    <!-- Item -->
     <dimen name="item_height">60dp</dimen>
-    <dimen name="item_drawer_width">80dp</dimen>
+    <dimen name="item_right_drawer_width">80dp</dimen>
+    <dimen name="item_left_drawer_width">60dp</dimen>
+    <dimen name="item_divider">1dp</dimen>
 
 </resources>
