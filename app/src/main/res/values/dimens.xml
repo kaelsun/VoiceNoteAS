@@ -9,8 +9,10 @@
     <dimen name="fragment_title_height">60dp</dimen>
     <dimen name="fragment_bottom_height">80dp</dimen>
     <dimen name="fragment_bottom_bg_height">80dp</dimen>
+    <dimen name="title_vertical_margin">10dp</dimen>
     
     <!-- Text Size -->
+    <dimen name="text_size_xlarge">24sp</dimen>
     <dimen name="text_size_large">20sp</dimen>
     <dimen name="text_size_middle">10sp</dimen>
     <dimen name="text_size_small">6sp</dimen>
