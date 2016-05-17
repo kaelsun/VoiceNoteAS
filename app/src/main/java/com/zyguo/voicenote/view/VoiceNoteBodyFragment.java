@@ -70,9 +70,12 @@ public class VoiceNoteBodyFragment extends BaseFragment{
 
     private void initView() {
         LinearLayout body = (LinearLayout) getView().findViewById(R.id.fragment_body_main);
-        View view = mInflater.inflate(R.layout.item, null);
+        //View view = mInflater.inflate(R.layout.item, null);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(android.view.ViewGroup.LayoutParams.MATCH_PARENT, android.view.ViewGroup.LayoutParams.WRAP_CONTENT);
         params.height = (int) getContext().getResources().getDimension(R.dimen.item_height);
-        body.addView(view, params);
+        //body.addView(view, params);
+        ItemViewDecorator decorator = new ItemViewDecorator(getContext());
+        if(decorator.getView() != null)
+            body.addView(decorator.getView(), params);
     }
 }
