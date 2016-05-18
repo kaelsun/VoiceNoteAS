@@ -13,10 +13,10 @@ public class ItemViewDecorator extends BaseViewDecorator{
     protected int layoutId = R.layout.item;
 
     public ItemViewDecorator(Context context) {
-        super(context);
+        super(context, R.layout.item);
     }
 
     protected void initController() {
-        
+
     }
 }

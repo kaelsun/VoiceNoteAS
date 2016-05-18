@@ -34,7 +34,7 @@ public abstract class BaseViewDecorator implements OnClickListener{
         return mView.findViewById(id);
     }
 
-    public BaseViewDecorator(Context context) {
+    public BaseViewDecorator(Context context, int layoutId) {
         LayoutInflater inflater = LayoutInflater.from(context);
         mView = inflater.inflate(layoutId, null);
 

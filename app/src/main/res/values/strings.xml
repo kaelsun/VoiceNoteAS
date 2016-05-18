@@ -14,4 +14,8 @@
 
     <string name="item_text_delete">删除</string>
 
+    <string name="item_text_main_default">点此输入/修改您的备忘</string>
+    <string name="item_text_create_time">创建于:2016年5月18日</string>
+    <string name="item_text_alarm_time">提醒:2016年5月18日</string>
+
 </resources>

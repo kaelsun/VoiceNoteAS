@@ -14,6 +14,7 @@
     <!-- Text Size -->
     <dimen name="text_size_xlarge">24sp</dimen>
     <dimen name="text_size_large">20sp</dimen>
+    <dimen name="text_size_xmiddle">16sp</dimen>
     <dimen name="text_size_middle">10sp</dimen>
     <dimen name="text_size_small">6sp</dimen>
 
@@ -23,9 +24,13 @@
     <dimen name="fragment_record_margin">40dp</dimen>
 
     <!-- Item -->
-    <dimen name="item_height">60dp</dimen>
-    <dimen name="item_right_drawer_width">80dp</dimen>
-    <dimen name="item_left_drawer_width">60dp</dimen>
+    <dimen name="item_height">80dp</dimen>
+    <dimen name="item_right_drawer_width">100dp</dimen>
+    <dimen name="item_left_drawer_width">80dp</dimen>
     <dimen name="item_divider">1dp</dimen>
+    <dimen name="item_icon_height">71dp</dimen>
+    <dimen name="item_icon_width">71dp</dimen>
+    <dimen name="item_icon_margin">4dp</dimen>
+    <dimen name="item_alarm_width">40dp</dimen>
 
 </resources>

@@ -1,6 +1,5 @@
 <com.zyguo.voicenote.base.TouchableDrawerLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="@dimen/item_height"
     android:id="@+id/fragment_body_drawer">
@@ -12,10 +11,88 @@
         android:id="@+id/item_main">
 
         <ImageView
+            android:id="@+id/item_icon"
+            android:src="@drawable/item_icon"
+            android:layout_width="@dimen/item_icon_width"
+            android:layout_height="@dimen/item_icon_height"
+            android:layout_marginTop="@dimen/item_icon_margin"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"/>
+
+        <ImageView
+            android:id="@+id/item_alarm"
+            android:layout_width="@dimen/item_alarm_width"
+            android:layout_height="@dimen/item_alarm_width"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/item_alarm"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"/>
+
+        <EditText
+            android:id="@+id/item_text_main"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_toRightOf="@+id/item_icon"
+            android:layout_marginLeft="@dimen/item_icon_margin"
+            android:layout_marginRight="@dimen/item_icon_margin"
+            android:layout_marginTop="@dimen/item_icon_margin"
+            android:text="@string/item_text_main_default"
+            android:textSize="@dimen/text_size_xmiddle"
+            android:background="@null"
+            android:textColor="@color/white"
+            android:layout_toLeftOf="@id/item_alarm"/>
+
+        <TextView
+            android:id="@+id/item_text_create_time"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_toRightOf="@+id/item_icon"
+            android:layout_marginLeft="@dimen/item_icon_margin"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/item_icon_margin"
+            android:text="@string/item_text_create_time"
+            android:textSize="@dimen/text_size_middle"
+            android:textColor="@color/black"/>
+
+        <ImageView
+            android:id="@+id/item_divider_middle"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/item_divider"
+            android:layout_toRightOf="@id/item_icon"
+            android:layout_toLeftOf="@id/item_alarm"
+            android:background="@color/black"
+            android:layout_above="@id/item_text_create_time"
+            android:layout_marginBottom="@dimen/item_icon_margin"
+            android:layout_marginLeft="@dimen/item_icon_margin"
+            android:layout_marginRight="@dimen/item_icon_margin"/>
+
+        <ImageView
+            android:layout_width="@dimen/item_divider"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@id/item_text_create_time"
+            android:layout_below="@id/item_divider_middle"
+            android:background="@color/black"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/item_icon_margin"
+            android:layout_marginLeft="@dimen/item_icon_margin"
+            android:id="@+id/item_divider_vertical"/>
+
+        <TextView
+            android:id="@+id/item_text_alarm_time"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_toRightOf="@+id/item_divider_vertical"
+            android:layout_marginLeft="@dimen/item_icon_margin"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/item_icon_margin"
+            android:text="@string/item_text_alarm_time"
+            android:textSize="@dimen/text_size_middle"
+            android:textColor="@color/text_red"/>
+
+        <ImageView
             android:layout_width="match_parent"
             android:layout_height="@dimen/item_divider"
             android:layout_alignParentBottom="true"
-            android:background="@drawable/blank_big"/>
+            android:background="@color/black"/>
     </RelativeLayout>
 
     <RelativeLayout
