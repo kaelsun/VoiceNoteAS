@@ -7,7 +7,10 @@ package com.zyguo.voicenote.model;
 public class ItemEntity {
 
     private Long id;
-    private Integer userId;
+    private String userId;
+    private String userName;
+    private String userPhone;
+    private String imei;
     private String content;
     private String localPath;
     private String url;
@@ -29,9 +32,12 @@ public class ItemEntity {
         this.id = id;
     }
 
-    public ItemEntity(Long id, Integer userId, String content, String localPath, String url, Boolean isStar, Boolean isVoice, Long createTime, Long remindTime, String type, String column1, String column2, String column3, String column4, String column5) {
+    public ItemEntity(Long id, String userId, String userName, String userPhone, String imei, String content, String localPath, String url, Boolean isStar, Boolean isVoice, Long createTime, Long remindTime, String type, String column1, String column2, String column3, String column4, String column5) {
         this.id = id;
         this.userId = userId;
+        this.userName = userName;
+        this.userPhone = userPhone;
+        this.imei = imei;
         this.content = content;
         this.localPath = localPath;
         this.url = url;
@@ -55,12 +61,36 @@ public class ItemEntity {
         this.id = id;
     }
 
-    public Integer getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(Integer userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getUserPhone() {
+        return userPhone;
+    }
+
+    public void setUserPhone(String userPhone) {
+        this.userPhone = userPhone;
+    }
+
+    public String getImei() {
+        return imei;
+    }
+
+    public void setImei(String imei) {
+        this.imei = imei;
     }
 
     public String getContent() {

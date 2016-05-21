@@ -25,6 +25,16 @@ public class ItemModel extends ItemEntity implements Serializable, Comparable<It
         else
             return 1;
     }
+
+    public static ItemModel createItem(String content, String localPath, boolean isVoice, String imei) {
+        ItemModel item = new ItemModel();
+        item.setContent(content);
+        item.setLocalPath(localPath);
+        item.setIsVoice(isVoice);
+        item.setCreateTime(System.currentTimeMillis());
+        item.setImei(imei);
+        return item;
+    }
 //
 //    /**
 //     * Id of the message

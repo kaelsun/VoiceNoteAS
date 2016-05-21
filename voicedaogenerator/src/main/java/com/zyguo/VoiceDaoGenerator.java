@@ -19,7 +19,7 @@ public class VoiceDaoGenerator {
         // schema2.enableActiveEntitiesByDefault();
         // schema2.enableKeepSectionsByDefault();
 
-        addNote(schema);
+        addItem(schema);
 
         new DaoGenerator().generateAll(schema, "d:/zyguo/git/VoiceNoteAS/app/src/main/java-gen");
     }
@@ -27,24 +27,27 @@ public class VoiceDaoGenerator {
     /**
      * @param schema
      */
-    private static void addNote(Schema schema) {
-        Entity note = schema.addEntity("ItemEntity");
+    private static void addItem(Schema schema) {
+        Entity item = schema.addEntity("ItemEntity");
         //note.setTableName("NODE");
 
-        note.addIdProperty();
-        note.addIntProperty("userId");
-        note.addStringProperty("content");
-        note.addStringProperty("localPath");
-        note.addStringProperty("url");
-        note.addBooleanProperty("isStar");
-        note.addBooleanProperty("isVoice");
-        note.addLongProperty("createTime");
-        note.addLongProperty("remindTime");
-        note.addStringProperty("type");
-        note.addStringProperty("column1");
-        note.addStringProperty("column2");
-        note.addStringProperty("column3");
-        note.addStringProperty("column4");
-        note.addStringProperty("column5");
+        item.addIdProperty();
+        item.addStringProperty("userId");
+        item.addStringProperty("userName");
+        item.addStringProperty("userPhone");
+        item.addStringProperty("imei");
+        item.addStringProperty("content");
+        item.addStringProperty("localPath");
+        item.addStringProperty("url");
+        item.addBooleanProperty("isStar");
+        item.addBooleanProperty("isVoice");
+        item.addLongProperty("createTime");
+        item.addLongProperty("remindTime");
+        item.addStringProperty("type");
+        item.addStringProperty("column1");
+        item.addStringProperty("column2");
+        item.addStringProperty("column3");
+        item.addStringProperty("column4");
+        item.addStringProperty("column5");
     }
 }

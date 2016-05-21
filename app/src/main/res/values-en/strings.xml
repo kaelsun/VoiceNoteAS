@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Voice Note</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    
+    <string name="order_off">normal</string>
+    <string name="order_on">reversed</string>
+    
+    <string name="cancle_the_talk">Wipe up to cancel</string>
+
+    <string name="ifly_app_id">572c7247</string>
+
+    <string name="item_text_delete">delete</string>
+
+    <string name="item_text_main_default">click to inset/modify</string>
+    <string name="item_text_create_time">created:2016/05/18</string>
+    <string name="item_text_alarm_time">remind:2016/05/18</string>
+
+</resources>
