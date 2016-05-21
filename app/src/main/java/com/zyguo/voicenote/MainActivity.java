@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.widget.Toast;
 
 import com.iflytek.cloud.SpeechUtility;
+import com.zyguo.voicenote.database.VoiceDatabaseManager;
 import com.zyguo.voicenote.tools.Messenger;
 import com.zyguo.voicenote.tools.VoiceRecogEng;
 import com.zyguo.voicenote.view.VoiceNoteBodyFragment;
@@ -34,6 +35,7 @@ public class MainActivity extends FragmentActivity implements Handler.Callback, 
         //setContentView(R.layout.item);
 
         initController();
+        VoiceDatabaseManager.getInstance().init(this);
     }
 
     @Override
@@ -72,6 +74,7 @@ public class MainActivity extends FragmentActivity implements Handler.Callback, 
         super.onDestroy();
         mVoiceRecogEng.unInitialize();
         Messenger.getInstance().release();
+        VoiceDatabaseManager.getInstance().unInit();
     }
 
     private void initController() {
