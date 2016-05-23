@@ -115,7 +115,7 @@ public class MainActivity extends FragmentActivity implements Handler.Callback, 
                 Toast.makeText(this, "" + obj1, Toast.LENGTH_SHORT).show();
                 break;
             case VoiceRecogEng.IVoiceRecogCallbk.VOICE_RECOGNLIZE_CALLBACK_TYPE_RECOGLIZE_RESULT:
-                Toast.makeText(this, "" + obj1+obj2+"", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this, "" + obj1+obj2+"", Toast.LENGTH_SHORT).show();
                 onResult(obj1 + "", obj2 + "");
                 break;
             case VoiceRecogEng.IVoiceRecogCallbk.VOICE_RECOGNLIZE_CALLBACK_TYPE_MEMORY_NOT_AVAILIABLE:

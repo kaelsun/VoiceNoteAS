@@ -82,4 +82,11 @@ public class TimeUtil {
         }
         return "";
     }
+
+    public static String getItemCreateTime(long stamp) {
+        Date date = new Date(stamp);
+        SimpleDateFormat format = new SimpleDateFormat("创建于yyyy/M/d/,H:m");
+        String str = format.format(date);
+        return str;
+    }
 }

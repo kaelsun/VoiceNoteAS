@@ -35,10 +35,9 @@ public abstract class BaseViewDecorator implements OnClickListener{
     }
 
     public BaseViewDecorator(Context context, int layoutId) {
+
         LayoutInflater inflater = LayoutInflater.from(context);
         mView = inflater.inflate(layoutId, null);
-
-        initController();
     }
 
     /**
@@ -49,5 +48,9 @@ public abstract class BaseViewDecorator implements OnClickListener{
     @Override
     public void onClick(View view) {
 
+    }
+
+    public Context getContext() {
+        return mView.getContext();
     }
 }

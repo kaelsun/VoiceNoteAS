@@ -35,6 +35,25 @@ public class ItemModel extends ItemEntity implements Serializable, Comparable<It
         item.setImei(imei);
         return item;
     }
+
+    public static ItemModel createItem(ItemEntity entity) {
+        ItemModel model = new ItemModel();
+        model.setContent(entity.getContent());
+        model.setLocalPath(entity.getLocalPath());
+        model.setCreateTime(entity.getCreateTime());
+        model.setId(entity.getId());
+        model.setImei(entity.getImei());
+        model.setIsStar(entity.getIsStar());
+        model.setIsVoice(entity.getIsVoice());
+        model.setRemindTime(entity.getRemindTime());
+        model.setType(entity.getType());
+        model.setUrl(entity.getUrl());
+        model.setUserId(entity.getUserId());
+        model.setUserName(entity.getUserName());
+        model.setUserPhone(entity.getUserPhone());
+
+        return model;
+    }
 //
 //    /**
 //     * Id of the message

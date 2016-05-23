@@ -73,7 +73,8 @@ public class TouchableDrawerLayout extends DrawerLayout implements GestureDetect
 
     @Override
     public void onLongPress(MotionEvent motionEvent) {
-
+        openDrawer(Gravity.RIGHT);
+        openDrawer(Gravity.LEFT);
     }
 
     @Override

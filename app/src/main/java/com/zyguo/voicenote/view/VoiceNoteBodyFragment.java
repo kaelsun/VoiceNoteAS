@@ -1,8 +1,10 @@
 package com.zyguo.voicenote.view;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Message;
 import android.support.v4.widget.DrawerLayout;
+import android.telephony.TelephonyManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,13 +12,20 @@ import android.widget.LinearLayout;
 
 import com.zyguo.voicenote.R;
 import com.zyguo.voicenote.base.BaseFragment;
+import com.zyguo.voicenote.database.VoiceDatabaseManager;
+import com.zyguo.voicenote.model.ItemEntity;
+import com.zyguo.voicenote.model.ItemModel;
 import com.zyguo.voicenote.tools.Messenger;
+
+import java.util.List;
 
 public class VoiceNoteBodyFragment extends BaseFragment{
 
     public static final int BODY_HANDLER_ONRESULT = 20;
 
     private LayoutInflater mInflater;
+
+    private LinearLayout mBody;
 
     @Override  
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
@@ -33,6 +42,7 @@ public class VoiceNoteBodyFragment extends BaseFragment{
     @Override
     public void onStart() {
         super.onStart();
+        mBody = (LinearLayout) getView().findViewById(R.id.fragment_body_main);
         initView();
     }
     
@@ -62,6 +72,7 @@ public class VoiceNoteBodyFragment extends BaseFragment{
         if(message.what == BODY_HANDLER_ONRESULT) {
             String content = message.getData().getString("content");
             String path = message.getData().getString("path");
+            onResult(content, path);
         }
         return true;
     }
@@ -73,13 +84,45 @@ public class VoiceNoteBodyFragment extends BaseFragment{
     }
 
     private void initView() {
+        List<ItemEntity> itemList = VoiceDatabaseManager.getInstance().queryAll();
+        loadLegacy(itemList);
+    }
+
+    private int getCurrentNoteCount() {
         LinearLayout body = (LinearLayout) getView().findViewById(R.id.fragment_body_main);
-        //View view = mInflater.inflate(R.layout.item, null);
+        if(body != null)
+            return body.getChildCount();
+        return 0;
+    }
+
+    private void onResult(String content, String path) {
+        // Create database entity.
+        ItemModel item = ItemModel.createItem(content, path, true, getImei());
+        // Store the entity to database.
+        if(VoiceDatabaseManager.getInstance().isInitialized())
+            VoiceDatabaseManager.getInstance().insert(item);
+        // Create the imp view.
+        ItemViewDecorator decorator = new ItemViewDecorator(getContext(), item);
+        if(decorator.getView() != null)
+            mBody.addView(decorator.getView(), getParams());
+    }
+
+    private String getImei() {
+        return ((TelephonyManager) getContext().getSystemService(Context.TELEPHONY_SERVICE)).getDeviceId();
+    }
+
+    private void loadLegacy(List<ItemEntity> itemList) {
+        for(ItemEntity entity : itemList) {
+            ItemModel model = ItemModel.createItem(entity);
+            ItemViewDecorator decorator = new ItemViewDecorator(getContext(), model);
+            if(decorator.getView() != null)
+                mBody.addView(decorator.getView(), getParams());
+        }
+    }
+
+    private LinearLayout.LayoutParams getParams() {
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(android.view.ViewGroup.LayoutParams.MATCH_PARENT, android.view.ViewGroup.LayoutParams.WRAP_CONTENT);
         params.height = (int) getContext().getResources().getDimension(R.dimen.item_height);
-        //body.addView(view, params);
-        ItemViewDecorator decorator = new ItemViewDecorator(getContext());
-        if(decorator.getView() != null)
-            body.addView(decorator.getView(), params);
+        return params;
     }
 }
