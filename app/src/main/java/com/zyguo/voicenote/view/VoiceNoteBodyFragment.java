@@ -59,6 +59,10 @@ public class VoiceNoteBodyFragment extends BaseFragment{
 
     @Override
     public boolean handleMessage(Message message) {
+        if(message.what == BODY_HANDLER_ONRESULT) {
+            String content = message.getData().getString("content");
+            String path = message.getData().getString("path");
+        }
         return true;
     }
 

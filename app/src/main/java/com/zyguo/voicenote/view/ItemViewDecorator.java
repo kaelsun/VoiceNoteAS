@@ -17,6 +17,5 @@ public class ItemViewDecorator extends BaseViewDecorator{
     }
 
     protected void initController() {
-
     }
 }
