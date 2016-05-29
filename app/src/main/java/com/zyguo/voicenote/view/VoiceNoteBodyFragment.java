@@ -17,6 +17,8 @@ import com.zyguo.voicenote.model.ItemEntity;
 import com.zyguo.voicenote.model.ItemModel;
 import com.zyguo.voicenote.tools.Messenger;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class VoiceNoteBodyFragment extends BaseFragment{
@@ -59,6 +61,7 @@ public class VoiceNoteBodyFragment extends BaseFragment{
     @Override
     public void onStop() {
         super.onStop();
+        clearView();
     }
     
     @Override
@@ -85,7 +88,9 @@ public class VoiceNoteBodyFragment extends BaseFragment{
 
     private void initView() {
         List<ItemEntity> itemList = VoiceDatabaseManager.getInstance().queryAll();
-        loadLegacy(itemList);
+        List<ItemModel> modelList = ItemModel.createModelList(itemList);
+        Collections.sort(modelList);
+        loadLegacy(modelList);
     }
 
     private int getCurrentNoteCount() {
@@ -111,7 +116,7 @@ public class VoiceNoteBodyFragment extends BaseFragment{
         return ((TelephonyManager) getContext().getSystemService(Context.TELEPHONY_SERVICE)).getDeviceId();
     }
 
-    private void loadLegacy(List<ItemEntity> itemList) {
+    private void loadLegacy(List<ItemModel> itemList) {
         for(ItemEntity entity : itemList) {
             ItemModel model = ItemModel.createItem(entity);
             ItemViewDecorator decorator = new ItemViewDecorator(getContext(), model);
@@ -124,5 +129,14 @@ public class VoiceNoteBodyFragment extends BaseFragment{
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(android.view.ViewGroup.LayoutParams.MATCH_PARENT, android.view.ViewGroup.LayoutParams.WRAP_CONTENT);
         params.height = (int) getContext().getResources().getDimension(R.dimen.item_height);
         return params;
+    }
+
+    public void refresh() {
+
+    }
+
+    private void clearView() {
+        if(mBody != null)
+        mBody.removeAllViews();
     }
 }

@@ -68,4 +68,12 @@ public class VoiceDatabaseManager {
     public List<ItemEntity> queryAll() {
         return itemDao.loadAll();
     }
+
+    public void starItem(ItemEntity entity) {
+        itemDao.update(entity);
+    }
+
+    public void deleteItem(ItemEntity entity) {
+        itemDao.delete(entity);
+    }
 }

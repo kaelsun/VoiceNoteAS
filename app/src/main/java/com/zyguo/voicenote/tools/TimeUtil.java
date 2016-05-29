@@ -85,7 +85,7 @@ public class TimeUtil {
 
     public static String getItemCreateTime(long stamp) {
         Date date = new Date(stamp);
-        SimpleDateFormat format = new SimpleDateFormat("创建于yyyy/M/d/,H:m");
+        SimpleDateFormat format = new SimpleDateFormat("创建于yyyy/M/d/,H:mm");
         String str = format.format(date);
         return str;
     }

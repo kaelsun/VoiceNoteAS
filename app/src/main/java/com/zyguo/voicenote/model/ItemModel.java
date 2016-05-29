@@ -1,6 +1,8 @@
 package com.zyguo.voicenote.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by zyguo on 2016/5/14.
@@ -31,8 +33,20 @@ public class ItemModel extends ItemEntity implements Serializable, Comparable<It
         item.setContent(content);
         item.setLocalPath(localPath);
         item.setIsVoice(isVoice);
+        item.setIsStar(false);
         item.setCreateTime(System.currentTimeMillis());
         item.setImei(imei);
+        item.setColumn1("");
+        item.setColumn2("");
+        item.setColumn3("");
+        item.setColumn4("");
+        item.setColumn5("");
+        item.setRemindTime(0L);
+        item.setType("");
+        item.setUrl("");
+        item.setUserId("");
+        item.setUserName("");
+        item.setUserPhone("");
         return item;
     }
 
@@ -51,8 +65,22 @@ public class ItemModel extends ItemEntity implements Serializable, Comparable<It
         model.setUserId(entity.getUserId());
         model.setUserName(entity.getUserName());
         model.setUserPhone(entity.getUserPhone());
+        model.setColumn1(entity.getColumn1());
+        model.setColumn2(entity.getColumn2());
+        model.setColumn3(entity.getColumn3());
+        model.setColumn4(entity.getColumn4());
+        model.setColumn5(entity.getColumn5());
 
         return model;
+    }
+
+    public static ArrayList<ItemModel> createModelList(List<ItemEntity> entityList) {
+        ArrayList<ItemModel> modelList = new ArrayList<ItemModel>();
+        for(ItemEntity entity : entityList) {
+            ItemModel model = createItem(entity);
+            modelList.add(model);
+        }
+        return modelList;
     }
 //
 //    /**
