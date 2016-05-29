@@ -25,6 +25,8 @@ public class VoiceNoteBodyFragment extends BaseFragment{
 
     public static final int BODY_HANDLER_ONRESULT = 20;
 
+    public static final int BODY_HANDLER_REFRESH = 21;
+
     private LayoutInflater mInflater;
 
     private LinearLayout mBody;
@@ -76,6 +78,8 @@ public class VoiceNoteBodyFragment extends BaseFragment{
             String content = message.getData().getString("content");
             String path = message.getData().getString("path");
             onResult(content, path);
+        } else if(message.what == BODY_HANDLER_REFRESH) {
+            refresh();
         }
         return true;
     }
@@ -132,7 +136,8 @@ public class VoiceNoteBodyFragment extends BaseFragment{
     }
 
     public void refresh() {
-
+        clearView();
+        initView();
     }
 
     private void clearView() {

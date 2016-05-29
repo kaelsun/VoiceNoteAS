@@ -1,6 +1,7 @@
 package com.zyguo.voicenote.view;
 
 import android.content.Context;
+import android.os.Message;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
@@ -12,6 +13,7 @@ import com.zyguo.voicenote.base.BaseViewDecorator;
 import com.zyguo.voicenote.base.TouchableDrawerLayout;
 import com.zyguo.voicenote.database.VoiceDatabaseManager;
 import com.zyguo.voicenote.model.ItemModel;
+import com.zyguo.voicenote.tools.Messenger;
 import com.zyguo.voicenote.tools.TimeUtil;
 
 import org.w3c.dom.Text;
@@ -80,26 +82,34 @@ public class ItemViewDecorator extends BaseViewDecorator implements View.OnLongC
     private void starThis() {
         if(!item.getIsStar()) {
             item.setIsStar(true);
-            ImageView star = (ImageView) getView().findViewById(R.id.item_star);
-            star.setImageResource(R.drawable.big_star_red);
-            TextView content = (TextView) getView().findViewById(R.id.item_text_main);
-            content.setTextColor(getContext().getResources().getColor(R.color.orange));
+            //ImageView star = (ImageView) getView().findViewById(R.id.item_star);
+            //star.setImageResource(R.drawable.big_star_red);
+            //TextView content = (TextView) getView().findViewById(R.id.item_text_main);
+            //content.setTextColor(getContext().getResources().getColor(R.color.orange));
         }
         else {
             item.setIsStar(false);
-            ImageView star = (ImageView) getView().findViewById(R.id.item_star);
-            star.setImageResource(R.drawable.big_star_grey);
-            TextView content = (TextView) getView().findViewById(R.id.item_text_main);
-            content.setTextColor(getContext().getResources().getColor(R.color.text_black));
+            //ImageView star = (ImageView) getView().findViewById(R.id.item_star);
+            //star.setImageResource(R.drawable.big_star_grey);
+            //TextView content = (TextView) getView().findViewById(R.id.item_text_main);
+            //content.setTextColor(getContext().getResources().getColor(R.color.text_black));
         }
         VoiceDatabaseManager.getInstance().starItem(item);
         TouchableDrawerLayout drawerLayout = (TouchableDrawerLayout) findViewById(R.id.fragment_body_drawer);
         drawerLayout.closeDrawer(Gravity.LEFT);
         drawerLayout.closeDrawer(Gravity.RIGHT);
+
+        pushRefresh();
     }
 
     private void deleteThis() {
         getView().setVisibility(View.GONE);
         VoiceDatabaseManager.getInstance().deleteItem(item);
+    }
+
+    private void pushRefresh() {
+        Message msg = new Message();
+        msg.what = VoiceNoteBodyFragment.BODY_HANDLER_REFRESH;
+        Messenger.getInstance().getHandlerByName(VoiceNoteBodyFragment.class.getName()).sendMessage(msg);
     }
 }
