@@ -19,7 +19,10 @@
     <string name="item_text_main_default">点此输入/修改您的备忘，或按住屏幕下方的按键说话</string>
     <string name="item_text_create_time">创建于:2016年5月18日</string>
     <string name="item_text_created">创建于:</string>
+    <string name="item_text_not_created">尚未创建</string>
+    <string name="item_text_not_alarmed">未设置提醒</string>
     <string name="item_text_alarm_time">提醒:2016年5月18日</string>
+    <string name="item_default_tip">请先创建备忘/记事</string>
 
     <string name="confirm">确定</string>
     <string name="cancel">取消</string>

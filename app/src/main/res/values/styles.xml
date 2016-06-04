@@ -18,12 +18,12 @@
     </style>
 
 
-    <style name="Theme.picker" parent="android:Theme.Holo.Dialog">
+    <style name="Theme.picker" parent="android:Theme.Holo.Light.Dialog">
         <item name="android:editTextStyle">@style/Widget.EditText.White</item>
     </style>
 
     <style name="Widget.EditText.White" parent="@android:style/Widget.EditText">
         <item name="android:textColor">@color/text_grey</item>
     </style>
-    
+
 </resources>

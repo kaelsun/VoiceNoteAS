@@ -19,7 +19,10 @@
     <string name="item_text_main_default">click to inset/modify, or click the button down of the page to talk</string>
     <string name="item_text_create_time">created:2016/05/18</string>
     <string name="item_text_created">created:</string>
+    <string name="item_text_not_created">Not created yet</string>
+    <string name="item_text_not_alarmed">No alarm set</string>
     <string name="item_text_alarm_time">remind:2016/05/18</string>
+    <string name="item_default_tip">Create a tip/note first.</string>
 
     <string name="confirm">Confirm</string>
     <string name="cancel">Cancel</string>

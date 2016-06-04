@@ -21,6 +21,7 @@ public class MainActivity extends FragmentActivity implements Handler.Callback, 
     public static final int MAIN_HANDLER_START_RECORD = 10;
     public static final int MAIN_HANDLER_STOP_RECORD = 11;
     public static final int MAIN_HANDLER_CANCEL_RECORD = 12;
+    public static final int MAIN_HANDLER_PICK_TIME = 13;
     // constants end
 
     private Handler mHandler;
@@ -51,7 +52,6 @@ public class MainActivity extends FragmentActivity implements Handler.Callback, 
     @Override
     protected void onStart() {
         super.onStart();
-        timePickerDialog.show(getSupportFragmentManager(), timePickerDialog.getClass().getName());
     }
 
     @Override

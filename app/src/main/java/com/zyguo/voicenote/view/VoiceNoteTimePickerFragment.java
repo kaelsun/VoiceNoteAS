@@ -31,8 +31,7 @@ public class VoiceNoteTimePickerFragment extends DialogFragment{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setStyle(R.style.Theme_picker, R.style.Theme_picker);
-        setStyle(0, R.style.Theme_picker);
+        setStyle(R.style.Theme_picker, R.style.Theme_picker);
     }
 
     @Override

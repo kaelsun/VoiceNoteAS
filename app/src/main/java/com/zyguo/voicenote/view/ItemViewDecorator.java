@@ -1,13 +1,16 @@
 package com.zyguo.voicenote.view;
 
 import android.content.Context;
+import android.os.Handler;
 import android.os.Message;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.zyguo.voicenote.MainActivity;
 import com.zyguo.voicenote.R;
 import com.zyguo.voicenote.base.BaseViewDecorator;
 import com.zyguo.voicenote.base.TouchableDrawerLayout;
@@ -43,12 +46,13 @@ public class ItemViewDecorator extends BaseViewDecorator implements View.OnLongC
     }
 
     protected void initController() {
+        findViewById(R.id.item_alarm).setOnClickListener(this);
         if(isDefault) {
             TextView create = (TextView) findViewById(R.id.item_text_create_time);
-            create.setText("创建于");
+            create.setText(R.string.item_text_not_created);
 
             TextView remind = (TextView) findViewById(R.id.item_text_alarm_time);
-            remind.setText("未设置提醒");
+            remind.setText(R.string.item_text_not_alarmed);
             remind.setTextColor(getContext().getResources().getColor(R.color.text_black));
 
             return;
@@ -62,7 +66,7 @@ public class ItemViewDecorator extends BaseViewDecorator implements View.OnLongC
         create.setText(createTime);
 
         TextView remind = (TextView) findViewById(R.id.item_text_alarm_time);
-        remind.setText("未设置提醒");
+        remind.setText(R.string.item_text_not_alarmed);
         remind.setTextColor(getContext().getResources().getColor(R.color.text_black));
 
         //findViewById(R.id.item_main).setOnLongClickListener(this);
@@ -94,6 +98,13 @@ public class ItemViewDecorator extends BaseViewDecorator implements View.OnLongC
                 break;
             case R.id.item_right:
                 deleteThis();
+                break;
+            case R.id.item_alarm:
+                if(isDefault)
+                    Toast.makeText(getContext(), R.string.item_default_tip, Toast.LENGTH_SHORT).show();
+                else {
+                    setAlarm();
+                }
                 break;
         }
     }
@@ -130,5 +141,12 @@ public class ItemViewDecorator extends BaseViewDecorator implements View.OnLongC
         Message msg = new Message();
         msg.what = VoiceNoteBodyFragment.BODY_HANDLER_REFRESH;
         Messenger.getInstance().getHandlerByName(VoiceNoteBodyFragment.class.getName()).sendMessage(msg);
+    }
+
+    private void setAlarm() {
+        Handler mainHandler = ((MainActivity)getContext()).getMainActivityHandler();
+        Message msg = new Message();
+        msg.what = MainActivity.MAIN_HANDLER_PICK_TIME;
+        mainHandler.sendMessage(msg);
     }
 }
