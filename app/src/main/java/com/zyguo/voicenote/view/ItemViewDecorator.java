@@ -27,13 +27,32 @@ public class ItemViewDecorator extends BaseViewDecorator implements View.OnLongC
 
     private ItemModel item;
 
+    private boolean isDefault;
+
     public ItemViewDecorator(Context context, ItemModel item) {
         super(context, R.layout.item);
         this.item = item;
+        isDefault = false;
+        initController();
+    }
+
+    public ItemViewDecorator(Context context) {
+        super(context, R.layout.item);
+        isDefault = true;
         initController();
     }
 
     protected void initController() {
+        if(isDefault) {
+            TextView create = (TextView) findViewById(R.id.item_text_create_time);
+            create.setText("创建于");
+
+            TextView remind = (TextView) findViewById(R.id.item_text_alarm_time);
+            remind.setText("未设置提醒");
+            remind.setTextColor(getContext().getResources().getColor(R.color.text_black));
+
+            return;
+        }
         EditText editText = (EditText) findViewById(R.id.item_text_main);
         editText.setText(item.getContent());
         editText.setTextColor(getContext().getResources().getColor(R.color.text_black));

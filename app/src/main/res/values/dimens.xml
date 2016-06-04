@@ -23,6 +23,14 @@
     <dimen name="fragment_record_height">120dp</dimen>
     <dimen name="fragment_record_margin">40dp</dimen>
 
+    <!-- Fragment Time Picker Dialog -->
+    <dimen name="fragment_time_picker_width">300dp</dimen>
+    <dimen name="fragment_time_picker_button_width">150dp</dimen>
+    <dimen name="fragment_time_picker_height">320dp</dimen>
+    <dimen name="fragment_time_picker_picker_height">160dp</dimen>
+    <dimen name="fragment_time_picker_margin">40dp</dimen>
+    <dimen name="fragment_time_picker_picker_margin">-40dp</dimen>
+
     <!-- Item -->
     <dimen name="item_height">80dp</dimen>
     <dimen name="item_right_drawer_width">100dp</dimen>

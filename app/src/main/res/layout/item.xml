@@ -24,7 +24,7 @@
             android:layout_height="@dimen/item_alarm_width"
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
-            android:src="@drawable/item_alarm"
+            android:src="@drawable/item_alarm_normal"
             android:layout_marginRight="@dimen/activity_horizontal_margin"/>
 
         <EditText
@@ -39,6 +39,7 @@
             android:textSize="@dimen/text_size_xmiddle"
             android:background="@null"
             android:textColor="@color/white"
+            android:imeOptions="actionDone"
             android:layout_toLeftOf="@id/item_alarm"/>
 
         <TextView

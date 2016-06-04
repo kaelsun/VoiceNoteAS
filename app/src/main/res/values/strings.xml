@@ -2,7 +2,9 @@
 <resources>
 
     <string name="app_name">语音记事本</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_settings">设置</string>
+    <string name="action_reorder">正序/倒序</string>
+    <string name="action_help">帮助</string>
     <string name="hello_world">Hello world!</string>
     
     <string name="order_off">正序</string>
@@ -14,8 +16,12 @@
 
     <string name="item_text_delete">删除</string>
 
-    <string name="item_text_main_default">点此输入/修改您的备忘</string>
+    <string name="item_text_main_default">点此输入/修改您的备忘，或按住屏幕下方的按键说话</string>
     <string name="item_text_create_time">创建于:2016年5月18日</string>
+    <string name="item_text_created">创建于:</string>
     <string name="item_text_alarm_time">提醒:2016年5月18日</string>
+
+    <string name="confirm">确定</string>
+    <string name="cancel">取消</string>
 
 </resources>

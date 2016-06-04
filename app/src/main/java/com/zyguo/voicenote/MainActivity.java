@@ -13,6 +13,7 @@ import com.zyguo.voicenote.tools.Messenger;
 import com.zyguo.voicenote.tools.VoiceRecogEng;
 import com.zyguo.voicenote.view.VoiceNoteBodyFragment;
 import com.zyguo.voicenote.view.VoiceNoteRecordAnimationFragment;
+import com.zyguo.voicenote.view.VoiceNoteTimePickerFragment;
 
 public class MainActivity extends FragmentActivity implements Handler.Callback, VoiceRecogEng.IVoiceRecogCallbk{
 
@@ -27,6 +28,8 @@ public class MainActivity extends FragmentActivity implements Handler.Callback, 
     VoiceRecogEng mVoiceRecogEng = VoiceRecogEng.getInstance();
 
     VoiceNoteRecordAnimationFragment recordDialog = new VoiceNoteRecordAnimationFragment();
+
+    VoiceNoteTimePickerFragment timePickerDialog = new VoiceNoteTimePickerFragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +51,7 @@ public class MainActivity extends FragmentActivity implements Handler.Callback, 
     @Override
     protected void onStart() {
         super.onStart();
+        timePickerDialog.show(getSupportFragmentManager(), timePickerDialog.getClass().getName());
     }
 
     @Override
