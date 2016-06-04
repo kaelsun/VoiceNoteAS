@@ -89,4 +89,11 @@ public class TimeUtil {
         String str = format.format(date);
         return str;
     }
+
+    public static String getItemAlarmTime(long stamp) {
+        Date date = new Date(stamp);
+        SimpleDateFormat format = new SimpleDateFormat("提醒时间：yyyy/M/d/,H:mm");
+        String str = format.format(date);
+        return str;
+    }
 }

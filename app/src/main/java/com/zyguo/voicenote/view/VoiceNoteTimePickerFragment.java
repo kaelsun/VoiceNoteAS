@@ -5,6 +5,8 @@ package com.zyguo.voicenote.view;
  */
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.os.SystemClock;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
@@ -18,9 +20,12 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.zyguo.voicenote.MainActivity;
 import com.zyguo.voicenote.R;
 
-public class VoiceNoteTimePickerFragment extends DialogFragment{
+import java.util.Calendar;
+
+public class VoiceNoteTimePickerFragment extends DialogFragment implements View.OnClickListener{
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
@@ -68,21 +73,45 @@ public class VoiceNoteTimePickerFragment extends DialogFragment{
     private void initController() {
         final TimePicker timePicker = (TimePicker) getView().findViewById(R.id.timepicker);
         timePicker.setIs24HourView(true);
-        //resetTextColor(timePicker);
 
         DatePicker datePicker = (DatePicker) getView().findViewById(R.id.datepicker);
-        //resetTextColor(datePicker);
-        //datePicker.seton
+
+        getView().findViewById(R.id.fragment_time_picker_confirm).setOnClickListener(this);
+        getView().findViewById(R.id.fragment_time_picker_cancel).setOnClickListener(this);
     }
 
-    private void resetTextColor(ViewGroup viewGroup) {
-        for(int i = 0; i < viewGroup.getChildCount(); i++) {
-            View child = viewGroup.getChildAt(i);
-            if(child instanceof TextView)
-                ((TextView)child).setTextColor(getActivity().getResources().getColorStateList(R.color.text_grey));
-            if(child instanceof ViewGroup)
-                resetTextColor((ViewGroup) child);
-        }
+    @Override
+    public void onClick(View view) {
+        switch(view.getId()) {
+            case R.id.fragment_time_picker_confirm:
+                setAlarm();
+                dismiss();
+                break;
+            case R.id.fragment_time_picker_cancel:
+                dismiss();
+                break;
+        };
+    }
+
+    private void setAlarm() {
+        TimePicker timePicker = (TimePicker) getView().findViewById(R.id.timepicker);
+        DatePicker datePicker = (DatePicker) getView().findViewById(R.id.datepicker);
+
+        int year = datePicker.getYear();
+        int month = datePicker.getMonth();
+        int day = datePicker.getDayOfMonth();
+        int hour = timePicker.getCurrentHour();
+        int minute = timePicker.getCurrentMinute();
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(year, month, day, hour, minute);
+        long milli = calendar.getTimeInMillis();
+        //Toast.makeText(getActivity(), year+"年"+month+"月"+day+"日"+hour+"时"+minite+"分"+milli, Toast.LENGTH_SHORT).show();
+
+        Handler mainHandler = ((MainActivity)getActivity()).getMainActivityHandler();
+        Message msg = new Message();
+        msg.what = MainActivity.MAIN_HANDLER_TIME_PICKED;
+        msg.obj = milli;
+        mainHandler.sendMessage(msg);
     }
 }
 

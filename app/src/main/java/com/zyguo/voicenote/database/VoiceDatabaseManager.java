@@ -73,6 +73,10 @@ public class VoiceDatabaseManager {
         itemDao.update(entity);
     }
 
+    public void updateItem(ItemEntity entity) {
+        itemDao.update(entity);
+    }
+
     public void deleteItem(ItemEntity entity) {
         itemDao.delete(entity);
     }

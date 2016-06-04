@@ -4,7 +4,10 @@ import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -24,7 +27,7 @@ import org.w3c.dom.Text;
 /**
  * Created by zyguo on 2016/5/16.
  */
-public class ItemViewDecorator extends BaseViewDecorator implements View.OnLongClickListener{
+public class ItemViewDecorator extends BaseViewDecorator implements View.OnLongClickListener, TextView.OnEditorActionListener{
 
     protected int layoutId = R.layout.item;
 
@@ -60,6 +63,7 @@ public class ItemViewDecorator extends BaseViewDecorator implements View.OnLongC
         EditText editText = (EditText) findViewById(R.id.item_text_main);
         editText.setText(item.getContent());
         editText.setTextColor(getContext().getResources().getColor(R.color.text_black));
+        editText.setOnEditorActionListener(this);
 
         String createTime = TimeUtil.getItemCreateTime(item.getCreateTime());
         TextView create = (TextView) findViewById(R.id.item_text_create_time);
@@ -147,6 +151,44 @@ public class ItemViewDecorator extends BaseViewDecorator implements View.OnLongC
         Handler mainHandler = ((MainActivity)getContext()).getMainActivityHandler();
         Message msg = new Message();
         msg.what = MainActivity.MAIN_HANDLER_PICK_TIME;
+        msg.obj = this;
         mainHandler.sendMessage(msg);
+    }
+
+    public void setAlarm(long time) {
+        //Toast.makeText(getContext(), time+"", Toast.LENGTH_SHORT).show();
+        if(time == 0)
+            return;
+        item.setRemindTime(time);
+        updateItem();
+    }
+
+    private void cancelAlarm() {
+        item.setRemindTime(0L);
+        updateItem();
+    }
+
+    @Override
+    public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
+        final String str = textView.getText().toString().trim();
+        if (actionId== EditorInfo.IME_ACTION_SEND || (keyEvent != null && keyEvent.getKeyCode()== KeyEvent.KEYCODE_ENTER)) {
+            if(str == null || str.equals("")) {
+                if (actionId==EditorInfo.IME_ACTION_SEND)
+                    Toast.makeText(getContext(), "请输入文字", Toast.LENGTH_SHORT).show();
+            }
+            else {
+                item.setContent(str);
+                updateItem();
+                InputMethodManager m = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                m.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+                textView.clearFocus();
+            }
+            return false;
+        }
+        return false;
+    }
+
+    public void updateItem() {
+        VoiceDatabaseManager.getInstance().updateItem(item);
     }
 }

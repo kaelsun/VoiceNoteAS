@@ -11,6 +11,7 @@ import com.iflytek.cloud.SpeechUtility;
 import com.zyguo.voicenote.database.VoiceDatabaseManager;
 import com.zyguo.voicenote.tools.Messenger;
 import com.zyguo.voicenote.tools.VoiceRecogEng;
+import com.zyguo.voicenote.view.ItemViewDecorator;
 import com.zyguo.voicenote.view.VoiceNoteBodyFragment;
 import com.zyguo.voicenote.view.VoiceNoteRecordAnimationFragment;
 import com.zyguo.voicenote.view.VoiceNoteTimePickerFragment;
@@ -22,6 +23,7 @@ public class MainActivity extends FragmentActivity implements Handler.Callback, 
     public static final int MAIN_HANDLER_STOP_RECORD = 11;
     public static final int MAIN_HANDLER_CANCEL_RECORD = 12;
     public static final int MAIN_HANDLER_PICK_TIME = 13;
+    public static final int MAIN_HANDLER_TIME_PICKED = 14;
     // constants end
 
     private Handler mHandler;
@@ -31,6 +33,8 @@ public class MainActivity extends FragmentActivity implements Handler.Callback, 
     VoiceNoteRecordAnimationFragment recordDialog = new VoiceNoteRecordAnimationFragment();
 
     VoiceNoteTimePickerFragment timePickerDialog = new VoiceNoteTimePickerFragment();
+
+    private ItemViewDecorator decoratorToAlarm = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,6 +105,15 @@ public class MainActivity extends FragmentActivity implements Handler.Callback, 
             case MAIN_HANDLER_CANCEL_RECORD:
                 mVoiceRecogEng.voiceRecognizeCancel();
                 recordDialog.dismiss();
+                break;
+            case MAIN_HANDLER_PICK_TIME:
+                timePickerDialog.show(getSupportFragmentManager(), timePickerDialog.getClass().getName());
+                decoratorToAlarm = (ItemViewDecorator) message.obj;
+                break;
+            case MAIN_HANDLER_TIME_PICKED:
+                long time = Long.parseLong(message.obj+"");
+                if(decoratorToAlarm != null)
+                    decoratorToAlarm.setAlarm(time);
                 break;
         }
         return true;
